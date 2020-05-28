@@ -15,6 +15,7 @@
 		$categories[] = $row;
 	}
 
+	//Đọc bài viêt chi tiết
 	$id = $_GET['id'];
 	$query_post = "SELECT p.*, c.title AS 'cate', a.name FROM posts p LEFT JOIN categories c ON p.category_id = c.id LEFT JOIN authors a on p.authors_id = a.id where p.id=".$id;
 
@@ -22,9 +23,11 @@
 	$result_post = $conn->query($query_post);
 	$post = $result_post->fetch_assoc();
 
-	$category_id = $post['category_id'];
+	
 	//BÀI VIẾT LIÊN QUAN
 	//Câu lệnh truy vấn
+	$category_id = $post['category_id'];
+	
 	$query1 = "SELECT p.*, c.title AS 'category' FROM posts p LEFT JOIN categories c ON p.category_id = c.id WHERE p.status = 1 and p.category_id = ".$category_id." ORDER BY p.created_at DESC LIMIT 5";
 
 	//Thực thi câu lệnh
