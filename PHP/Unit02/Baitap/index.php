@@ -1,19 +1,24 @@
 <?php
-	// Kết nối với CSDL
-	$servername = "localhost"; //Địa chỉ id máy chủ CSDL
+	require_once('connection.php');
 
-	$username = "root"; //Tên đăng nhập
-
-	$password = ""; //Mật khẩu
-
-	$dbname = "blogs"; //Tên CSDL muốn kết nối đến
-
-	//Tạo kết nối đến CSDL
-	$conn = new mysqli($servername, $username, $password, $dbname);
-
-	//KHỐI 1
+	//category
 	//Câu lệnh truy vấn
-	$query = "SELECT * FROM posts ORDER BY created_at DESC LIMIT 6";
+	$query_category = "SELECT * FROM categories";
+
+	//Thực thi câu lệnh
+	$result_cate = $conn->query($query_category);
+
+	//Tạo ra một bảng chứa dữ liệu
+	$categories = array();
+
+	while ($row = $result_cate->fetch_assoc()) {
+		$categories[] = $row;
+	}
+
+
+	//HAI BÀI ĐẦU
+	//Câu lệnh truy vấn
+	$query = "SELECT p.*, c.title AS 'category' FROM posts p LEFT JOIN categories c ON p.category_id = c.id WHERE p.`status` = 1 ORDER BY p.created_at DESC LIMIT 2";
 
 	//Thực thi câu lệnh
 	$result = $conn->query($query);
@@ -25,9 +30,23 @@
 		$posts[] = $row;
 	}
 
+	//KHỐI 1
+	//Câu lệnh truy vấn
+	$query1 = "SELECT * FROM posts WHERE status = 1 ORDER BY created_at DESC LIMIT 6";
+
+	//Thực thi câu lệnh
+	$result1 = $conn->query($query1);
+
+	//Tạo ra một bảng chứa dữ liệu
+	$posts1 = array();
+
+	while ($row = $result1->fetch_assoc()) {
+		$posts1[] = $row;
+	}
+
 	//KHỐI TO NỔI BẬT
 	//Câu lệnh truy vấn
-	$query2 = "SELECT * FROM posts ORDER BY RAND() LIMIT 1";
+	$query2 = "SELECT * FROM posts WHERE status = 1 ORDER BY RAND() LIMIT 1";
 
 	//Thực thi câu lệnh
 	$result2 = $conn->query($query2);
@@ -41,7 +60,7 @@
 
 	//KHỐI 2
 	//Câu lệnh truy vấn
-	$query3 = "SELECT * FROM posts ORDER BY RAND() LIMIT 6";
+	$query3 = "SELECT * FROM posts WHERE status = 1 ORDER BY RAND() LIMIT 6";
 
 	//Thực thi câu lệnh
 	$result3 = $conn->query($query3);
@@ -87,101 +106,7 @@
 
 		<!-- Header -->
 		<header id="header">
-			<!-- Nav -->
-			<div id="nav">
-				<!-- Main Nav -->
-				<div id="nav-fixed">
-					<div class="container">
-						<!-- logo -->
-						<div class="nav-logo">
-							<a href="index.html" class="logo"><img src="./img/logo.png" alt=""></a>
-						</div>
-						<!-- /logo -->
-
-						<!-- nav -->
-						<ul class="nav-menu nav navbar-nav">
-							<li><a href="category.html">News</a></li>
-							<li><a href="category.html">Popular</a></li>
-							<li class="cat-1"><a href="category.html">Web Design</a></li>
-							<li class="cat-2"><a href="category.html">JavaScript</a></li>
-							<li class="cat-3"><a href="category.html">Css</a></li>
-							<li class="cat-4"><a href="category.html">Jquery</a></li>
-						</ul>
-						<!-- /nav -->
-
-						<!-- search & aside toggle -->
-						<div class="nav-btns">
-							<button class="aside-btn"><i class="fa fa-bars"></i></button>
-							<button class="search-btn"><i class="fa fa-search"></i></button>
-							<div class="search-form">
-								<input class="search-input" type="text" name="search" placeholder="Enter Your Search ...">
-								<button class="search-close"><i class="fa fa-times"></i></button>
-							</div>
-						</div>
-						<!-- /search & aside toggle -->
-					</div>
-				</div>
-				<!-- /Main Nav -->
-
-				<!-- Aside Nav -->
-				<div id="nav-aside">
-					<!-- nav -->
-					<div class="section-row">
-						<ul class="nav-aside-menu">
-							<li><a href="index.html">Home</a></li>
-							<li><a href="about.html">About Us</a></li>
-							<li><a href="#">Join Us</a></li>
-							<li><a href="#">Advertisement</a></li>
-							<li><a href="contact.html">Contacts</a></li>
-						</ul>
-					</div>
-					<!-- /nav -->
-
-					<!-- widget posts -->
-					<div class="section-row">
-						<h3>Recent Posts</h3>
-						<div class="post post-widget">
-							<a class="post-img" href="blog-post.html"><img src="./img/widget-2.jpg" alt=""></a>
-							<div class="post-body">
-								<h3 class="post-title"><a href="blog-post.html">Pagedraw UI Builder Turns Your Website Design Mockup Into Code Automatically</a></h3>
-							</div>
-						</div>
-
-						<div class="post post-widget">
-							<a class="post-img" href="blog-post.html"><img src="./img/widget-3.jpg" alt=""></a>
-							<div class="post-body">
-								<h3 class="post-title"><a href="blog-post.html">Why Node.js Is The Coolest Kid On The Backend Development Block!</a></h3>
-							</div>
-						</div>
-
-						<div class="post post-widget">
-							<a class="post-img" href="blog-post.html"><img src="./img/widget-4.jpg" alt=""></a>
-							<div class="post-body">
-								<h3 class="post-title"><a href="blog-post.html">Tell-A-Tool: Guide To Web Design And Development Tools</a></h3>
-							</div>
-						</div>
-					</div>
-					<!-- /widget posts -->
-
-					<!-- social links -->
-					<div class="section-row">
-						<h3>Follow us</h3>
-						<ul class="nav-aside-social">
-							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-							<li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-						</ul>
-					</div>
-					<!-- /social links -->
-
-					<!-- aside nav close -->
-					<button class="nav-aside-close"><i class="fa fa-times"></i></button>
-					<!-- /aside nav close -->
-				</div>
-				<!-- Aside Nav -->
-			</div>
-			<!-- /Nav -->
+			<?php require_once('MainNav.php'); ?>
 		</header>
 		<!-- /Header -->
 
@@ -190,36 +115,27 @@
 			<!-- container -->
 			<div class="container">
 				<!-- row -->
-				<div class="row">	
+				<div class="row">
+					<?php
+						foreach ($posts as $post) {
+					?>	
 					<!-- post -->
 					<div class="col-md-6">
 						<div class="post post-thumb">
-							<a class="post-img" href="blog-post.html"><img src="./img/post-1.jpg" alt=""></a>
+							<a class="post-img" href="blog-post.php"><img style="width: 100%; height: 360px;" src="<?php echo $post['thumbnail']; ?>" alt=""></a>
 							<div class="post-body">
 								<div class="post-meta">
-									<a class="post-category cat-2" href="category.html">JavaScript</a>
-									<span class="post-date">March 27, 2018</span>
+									<a class="post-category cat-2" href="category.php"><?php echo $post['category']; ?></a>
+									<span class="post-date"><?php echo $post['created_at']; ?></span>
 								</div>
-								<h3 class="post-title"><a href="blog-post.html">Chrome Extension Protects Against JavaScript-Based CPU Side-Channel Attacks</a></h3>
+								<h3 class="post-title"><a href="blog-post.php?id=<?= $post['id'] ?>"><?php echo $post['title']; ?></a></h3>
 							</div>
 						</div>
 					</div>
 					<!-- /post -->
-
-					<!-- post -->
-					<div class="col-md-6">
-						<div class="post post-thumb">
-							<a class="post-img" href="blog-post.html"><img src="./img/post-2.jpg" alt=""></a>
-							<div class="post-body">
-								<div class="post-meta">
-									<a class="post-category cat-3" href="category.html">Jquery</a>
-									<span class="post-date">March 27, 2018</span>
-								</div>
-								<h3 class="post-title"><a href="blog-post.html">Ask HN: Does Anybody Still Use JQuery?</a></h3>
-							</div>
-						</div>
-					</div>
-					<!-- /post -->
+					<?php
+						}
+					?>
 				</div>
 				<!-- /row -->
 
@@ -232,18 +148,18 @@
 					</div>
 					
 					<?php
-						foreach ($posts as $post) {
+						foreach ($posts1 as $post) {
 					?>
 					<!-- post -->
 					<div class="col-md-4">
 						<div class="post">
-							<a class="post-img" href="blog-post.html"><img width="360px" height="240px" src="<?php echo $post['thumbnail']; ?>" alt=""></a>
+							<a class="post-img" href="blog-post.php?id=<?= $post['id'] ?>"><img width="360px" height="240px" src="<?php echo $post['thumbnail']; ?>" alt=""></a>
 							<div class="post-body">
 								<div class="post-meta">
-									<a class="post-category cat-1" href="category.html">Web Design</a>
+									<a class="post-category cat-1" href="category.php">Web Design</a>
 									<span class="post-date"><?php echo $post['created_at']; ?></span>
 								</div>
-								<h3 class="post-title" style="height: 65px;"><a href="blog-post.html"><?php echo $post['title']; ?></a></h3>
+								<h3 class="post-title" style="height: 65px;"><a href="blog-post.php?id=<?= $post['id'] ?>"><?php echo $post['title']; ?></a></h3>
 							</div>
 						</div>
 					</div>
@@ -266,13 +182,13 @@
 							<!-- post -->
 							<div class="col-md-12">
 								<div class="post post-thumb">
-									<a class="post-img" href="blog-post.html"><img src="<?php echo $post['thumbnail']; ?>" alt=""></a>
+									<a class="post-img" href="blog-post.php?id=<?= $post['id'] ?>"><img src="<?php echo $post['thumbnail']; ?>" alt=""></a>
 									<div class="post-body">
 										<div class="post-meta">
-											<a class="post-category cat-3" href="category.html">Jquery</a>
+											<a class="post-category cat-3" href="category.php">Jquery</a>
 											<span class="post-date"><?php echo $post['created_at']; ?></span>
 										</div>
-										<h3 class="post-title"><a href="blog-post.html"><?php echo $post['title']; ?></a></h3>
+										<h3 class="post-title"><a href="blog-post.php?id=<?= $post['id'] ?>"><?php echo $post['title']; ?></a></h3>
 									</div>
 								</div>
 							</div>
@@ -287,13 +203,13 @@
 							<!-- post -->
 							<div class="col-md-6">
 								<div class="post">
-									<a class="post-img" href="blog-post.html"><img width="360px" height="240px" src="<?php echo $post['thumbnail']; ?>" alt=""></a>
+									<a class="post-img" href="blog-post.php?id=<?= $post['id'] ?>"><img width="360px" height="240px" src="<?php echo $post['thumbnail']; ?>" alt=""></a>
 									<div class="post-body">
 										<div class="post-meta">
-											<a class="post-category cat-4" href="category.html">Css</a>
+											<a class="post-category cat-4" href="category.php">Css</a>
 											<span class="post-date"><?php echo $post['created_at']; ?></span>
 										</div>
-										<h3 class="post-title" style="height: 65px;"><a href="blog-post.html"><?php echo $post['title']; ?></a></h3>
+										<h3 class="post-title" style="height: 65px;"><a href="blog-post.php?id=<?= $post['id'] ?>"><?php echo $post['title']; ?></a></h3>
 									</div>
 								</div>
 							</div>

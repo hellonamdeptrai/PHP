@@ -1,3 +1,43 @@
+<?php
+	require_once('connection.php');
+
+	//category
+	//Câu lệnh truy vấn
+	$query_category = "SELECT * FROM categories";
+
+	//Thực thi câu lệnh
+	$result_cate = $conn->query($query_category);
+
+	//Tạo ra một bảng chứa dữ liệu
+	$categories = array();
+
+	while ($row = $result_cate->fetch_assoc()) {
+		$categories[] = $row;
+	}
+
+	$id = $_GET['id'];
+	$query_post = "SELECT p.*, c.title AS 'cate', a.name FROM posts p LEFT JOIN categories c ON p.category_id = c.id LEFT JOIN authors a on p.authors_id = a.id where p.id=".$id;
+
+	
+	$result_post = $conn->query($query_post);
+	$post = $result_post->fetch_assoc();
+
+	$category_id = $post['category_id'];
+	//BÀI VIẾT LIÊN QUAN
+	//Câu lệnh truy vấn
+	$query1 = "SELECT p.*, c.title AS 'category' FROM posts p LEFT JOIN categories c ON p.category_id = c.id WHERE p.status = 1 and p.category_id = ".$category_id." ORDER BY p.created_at DESC LIMIT 5";
+
+	//Thực thi câu lệnh
+	$result1 = $conn->query($query1);
+
+	//Tạo ra một bảng chứa dữ liệu
+	$posts1 = array();
+
+	while ($row = $result1->fetch_assoc()) {
+		$posts1[] = $row;
+	}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -33,99 +73,7 @@
 		<!-- Header -->
 		<header id="header">
 			<!-- Nav -->
-			<div id="nav">
-				<!-- Main Nav -->
-				<div id="nav-fixed">
-					<div class="container">
-						<!-- logo -->
-						<div class="nav-logo">
-							<a href="index.html" class="logo"><img src="./img/logo.png" alt=""></a>
-						</div>
-						<!-- /logo -->
-
-						<!-- nav -->
-						<ul class="nav-menu nav navbar-nav">
-							<li><a href="category.html">News</a></li>
-							<li><a href="category.html">Popular</a></li>
-							<li class="cat-1"><a href="category.html">Web Design</a></li>
-							<li class="cat-2"><a href="category.html">JavaScript</a></li>
-							<li class="cat-3"><a href="category.html">Css</a></li>
-							<li class="cat-4"><a href="category.html">Jquery</a></li>
-						</ul>
-						<!-- /nav -->
-
-						<!-- search & aside toggle -->
-						<div class="nav-btns">
-							<button class="aside-btn"><i class="fa fa-bars"></i></button>
-							<button class="search-btn"><i class="fa fa-search"></i></button>
-							<div class="search-form">
-								<input class="search-input" type="text" name="search" placeholder="Enter Your Search ...">
-								<button class="search-close"><i class="fa fa-times"></i></button>
-							</div>
-						</div>
-						<!-- /search & aside toggle -->
-					</div>
-				</div>
-				<!-- /Main Nav -->
-
-				<!-- Aside Nav -->
-				<div id="nav-aside">
-					<!-- nav -->
-					<div class="section-row">
-						<ul class="nav-aside-menu">
-							<li><a href="index.html">Home</a></li>
-							<li><a href="about.html">About Us</a></li>
-							<li><a href="#">Join Us</a></li>
-							<li><a href="#">Advertisement</a></li>
-							<li><a href="contact.html">Contacts</a></li>
-						</ul>
-					</div>
-					<!-- /nav -->
-
-					<!-- widget posts -->
-					<div class="section-row">
-						<h3>Recent Posts</h3>
-						<div class="post post-widget">
-							<a class="post-img" href="blog-post.html"><img src="./img/widget-2.jpg" alt=""></a>
-							<div class="post-body">
-								<h3 class="post-title"><a href="blog-post.html">Pagedraw UI Builder Turns Your Website Design Mockup Into Code Automatically</a></h3>
-							</div>
-						</div>
-
-						<div class="post post-widget">
-							<a class="post-img" href="blog-post.html"><img src="./img/widget-3.jpg" alt=""></a>
-							<div class="post-body">
-								<h3 class="post-title"><a href="blog-post.html">Why Node.js Is The Coolest Kid On The Backend Development Block!</a></h3>
-							</div>
-						</div>
-
-						<div class="post post-widget">
-							<a class="post-img" href="blog-post.html"><img src="./img/widget-4.jpg" alt=""></a>
-							<div class="post-body">
-								<h3 class="post-title"><a href="blog-post.html">Tell-A-Tool: Guide To Web Design And Development Tools</a></h3>
-							</div>
-						</div>
-					</div>
-					<!-- /widget posts -->
-
-					<!-- social links -->
-					<div class="section-row">
-						<h3>Follow us</h3>
-						<ul class="nav-aside-social">
-							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-							<li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-						</ul>
-					</div>
-					<!-- /social links -->
-
-					<!-- aside nav close -->
-					<button class="nav-aside-close"><i class="fa fa-times"></i></button>
-					<!-- /aside nav close -->
-				</div>
-				<!-- Aside Nav -->
-			</div>
+			<?php require_once('MainNav.php'); ?>
 			<!-- /Nav -->
 			
 			<!-- Page Header -->
@@ -135,10 +83,10 @@
 					<div class="row">
 						<div class="col-md-10">
 							<div class="post-meta">
-								<a class="post-category cat-2" href="category.html">JavaScript</a>
-								<span class="post-date">March 27, 2018</span>
+								<a class="post-category cat-2" href="category.php"><?= $post['cate'] ?></a>
+								<span class="post-date"><?= $post['created_at'] ?></span>
 							</div>
-							<h1>Ask HN: Does Anybody Still Use JQuery?</h1>
+							<h1><?= $post['title'] ?></h1>
 						</div>
 					</div>
 				</div>
@@ -157,22 +105,10 @@
 					<div class="col-md-8">
 						<div class="section-row sticky-container">
 							<div class="main-post">
-								<h3>Lorem Ipsum: when, and when not to use it</h3>
-								<p>Do you like Cheese Whiz? Spray tan? Fake eyelashes? That's what is Lorem Ipsum to many—it rubs them the wrong way, all the way. It's unreal, uncanny, makes you wonder if something is wrong, it seems to seek your attention for all the wrong reasons. Usually, we prefer the real thing, wine without sulfur based preservatives, real butter, not margarine, and so we'd like our layouts and designs to be filled with real words, with thoughts that count, information that has value. </p>
-								<p>The toppings you may chose for that TV dinner pizza slice when you forgot to shop for foods, the paint you may slap on your face to impress the new boss is your business. But what about your daily bread? Design comps, layouts, wireframes—will your clients accept that you go about things the facile way? Authorities in our business will tell in no uncertain terms that Lorem Ipsum is that huge, huge no no to forswear forever. Not so fast, I'd say, there are some redeeming factors in favor of greeking text, as its use is merely the symptom of a worse problem to take into consideration.</p>
-								<figure class="figure-img">
-									<img class="img-responsive" src="./img/post-4.jpg" alt="">
-									<figcaption>So Lorem Ipsum is bad (not necessarily)</figcaption>
-								</figure>
-								<p>You begin with a text, you sculpt information, you chisel away what's not needed, you come to the point, make things clear, add value, you're a content person, you like words. Design is no afterthought, far from it, but it comes in a deserved second. Anyway, you still use Lorem Ipsum and rightly so, as it will always have a place in the web workers toolbox, as things happen, not always the way you like it, not always in the preferred order. Even if your less into design and more into content strategy you may find some redeeming value with, wait for it, dummy copy, no less.</p>
-								<p>There's lot of hate out there for a text that amounts to little more than garbled words in an old language. The villagers are out there with a vengeance to get that Frankenstein, wielding torches and pitchforks, wanting to tar and feather it at the least, running it out of town in shame.</p>
-								<p>One of the villagers, Kristina Halvorson from Adaptive Path, holds steadfastly to the notion that design can’t be tested without real content:</p>
-								<blockquote class="blockquote">
-									I’ve heard the argument that “lorem ipsum” is effective in wireframing or design because it helps people focus on the actual layout, or color scheme, or whatever. What kills me here is that we’re talking about creating a user experience that will (whether we like it or not) be DRIVEN by words. The entire structure of the page or app flow is FOR THE WORDS.
-								</blockquote>
-								<p>If that's what you think how bout the other way around? How can you evaluate content without design? No typography, no colors, no layout, no styles, all those things that convey the important signals that go beyond the mere textual, hierarchies of information, weight, emphasis, oblique stresses, priorities, all those subtle cues that also have visual and emotional appeal to the reader. Rigid proponents of content strategy may shun the use of dummy copy but then designers might want to ask them to provide style sheets with the copy decks they supply that are in tune with the design direction they require.</p>
-								<h3>Summing up, if the copy is diverting attention from the design it’s because it’s not up to task.</h3>
-								<p>Typographers of yore didn't come up with the concept of dummy copy because people thought that content is inconsequential window dressing, only there to be used by designers who can’t be bothered to read. Lorem Ipsum is needed because words matter, a lot. Just fill up a page with draft copy about the client’s business and they will actually read it and comment on it. They will be drawn to it, fiercely. Do it the wrong way and draft copy can derail your design review.</p>
+								<h3><?= $post['title'] ?></h3>
+								<p><?= $post['description'] ?></p>
+								<p><?= $post['contents'] ?></p>
+								<p><b><em>Đăng bởi: <?= $post['name'] ?></em></b></p>
 							</div>
 							<div class="post-shares sticky-shares">
 								<a href="#" class="share-facebook"><i class="fa fa-facebook"></i></a>
@@ -326,36 +262,19 @@
 						<!-- post widget -->
 						<div class="aside-widget">
 							<div class="section-title">
-								<h2>Most Read</h2>
+								<h2>Bài viết liên quan</h2>
 							</div>
-
+							
+							<?php foreach ($posts1 as $post) {
+							?>
 							<div class="post post-widget">
-								<a class="post-img" href="blog-post.html"><img src="./img/widget-1.jpg" alt=""></a>
+								<a class="post-img" href="blog-post.html"><img src="<?= $post['thumbnail'] ?>" alt=""></a>
 								<div class="post-body">
-									<h3 class="post-title"><a href="blog-post.html">Tell-A-Tool: Guide To Web Design And Development Tools</a></h3>
+									<h3 class="post-title"><a href="blog-post.html"><?= $post['title'] ?></a></h3>
 								</div>
 							</div>
+							<?php } ?>
 
-							<div class="post post-widget">
-								<a class="post-img" href="blog-post.html"><img src="./img/widget-2.jpg" alt=""></a>
-								<div class="post-body">
-									<h3 class="post-title"><a href="blog-post.html">Pagedraw UI Builder Turns Your Website Design Mockup Into Code Automatically</a></h3>
-								</div>
-							</div>
-
-							<div class="post post-widget">
-								<a class="post-img" href="blog-post.html"><img src="./img/widget-3.jpg" alt=""></a>
-								<div class="post-body">
-									<h3 class="post-title"><a href="blog-post.html">Why Node.js Is The Coolest Kid On The Backend Development Block!</a></h3>
-								</div>
-							</div>
-
-							<div class="post post-widget">
-								<a class="post-img" href="blog-post.html"><img src="./img/widget-4.jpg" alt=""></a>
-								<div class="post-body">
-									<h3 class="post-title"><a href="blog-post.html">Tell-A-Tool: Guide To Web Design And Development Tools</a></h3>
-								</div>
-							</div>
 						</div>
 						<!-- /post widget -->
 
