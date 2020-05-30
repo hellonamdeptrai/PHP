@@ -32,7 +32,15 @@
     <hr>
     <h2>Name: <?= $author['name'] ?></h2>
     <h2>Email: <?= $author['email'] ?></h2>
-    <h2>password: <?= $author['password'] ?></h2>
+    <h2>Password: <?= $author['password'] ?></h2>
+    <h2>Status: <?php
+        if ($author['status'] == 1) {
+            echo "Hoạt động";
+        } else {
+            echo "Ngừng hoạt động";
+        }
+        
+    ?></h2>
     </div>
 </body>
 </html>

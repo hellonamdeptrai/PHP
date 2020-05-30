@@ -37,7 +37,7 @@
     <a href="category_add.php" type="button" class="btn btn-primary">Thêm mới</a>
     <?php if (isset($_COOKIE['msg'])) { ?>
     <div class="alert alert-success">
-      <strong>Thành công! </strong> <?= $_COOKIE['msg'] ?>
+      <strong>Thông báo! </strong> <?= $_COOKIE['msg'] ?>
     </div>
     <?php } ?>
     <hr>

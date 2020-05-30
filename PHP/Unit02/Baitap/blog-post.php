@@ -271,9 +271,9 @@
 							<?php foreach ($posts1 as $post) {
 							?>
 							<div class="post post-widget">
-								<a class="post-img" href="blog-post.html"><img src="<?= $post['thumbnail'] ?>" alt=""></a>
+								<a class="post-img" href="blog-post.php"><img src="./img/<?= $post['thumbnail'] ?>" alt=""></a>
 								<div class="post-body">
-									<h3 class="post-title"><a href="blog-post.html"><?= $post['title'] ?></a></h3>
+									<h3 class="post-title"><a href="blog-post.php"><?= $post['title'] ?></a></h3>
 								</div>
 							</div>
 							<?php } ?>

@@ -132,7 +132,7 @@
 							<!-- post -->
 							<div class="col-md-12">
 								<div class="post post-thumb">
-									<a class="post-img" href="blog-post.php?id=<?= $post_in_3posts['id'] ?>"><img style="height: 500px;" src="<?= $post_in_3posts['thumbnail'] ?>" alt=""></a>
+									<a class="post-img" href="blog-post.php?id=<?= $post_in_3posts['id'] ?>"><img style="height: 500px;" src="./img/<?= $post_in_3posts['thumbnail'] ?>" alt=""></a>
 									<div class="post-body">
 										<div class="post-meta">
 											<a class="post-category cat-2" href="#"><?= $post_in_3posts['category'] ?></a>
@@ -148,7 +148,7 @@
 							<!-- post -->
 							<div class="col-md-6">
 								<div class="post">
-									<a class="post-img" href="blog-post.php?id=<?= $post['id'] ?>"><img style="height: 250px;" src="<?= $post['thumbnail'] ?>" alt=""></a>
+									<a class="post-img" href="blog-post.php?id=<?= $post['id'] ?>"><img style="height: 220px;" src="./img/<?= $post['thumbnail'] ?>" alt=""></a>
 									<div class="post-body">
 										<div class="post-meta">
 											<a class="post-category cat-2" href="#"><?= $post['category'] ?></a>
@@ -179,7 +179,7 @@
 							<!-- post -->
 							<div class="col-md-12">
 								<div class="post post-row">
-									<a class="post-img" href="blog-post.php?id=<?= $post['id'] ?>"><img style="height: 210px;" src="<?= $post['thumbnail'] ?>" alt=""></a>
+									<a class="post-img" href="blog-post.php?id=<?= $post['id'] ?>"><img style="height: 180px;" src="./img/<?= $post['thumbnail'] ?>" alt=""></a>
 									<div class="post-body">
 										<div class="post-meta">
 											<a class="post-category cat-2" href="#"><?= $post['category'] ?></a>
@@ -220,7 +220,7 @@
 							<?php foreach ($posts_lq as $post) {
 							?>
 							<div class="post post-widget">
-								<a class="post-img" href="blog-post.html"><img src="<?= $post['thumbnail'] ?>" alt=""></a>
+								<a class="post-img" href="blog-post.html"><img src="./img/<?= $post['thumbnail'] ?>" alt=""></a>
 								<div class="post-body">
 									<h3 class="post-title"><a href="blog-post.html"><?= $post['title'] ?></a></h3>
 								</div>

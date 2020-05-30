@@ -122,7 +122,7 @@
 					<!-- post -->
 					<div class="col-md-6">
 						<div class="post post-thumb">
-							<a class="post-img" href="blog-post.php"><img style="width: 100%; height: 360px;" src="<?php echo $post['thumbnail']; ?>" alt=""></a>
+							<a class="post-img" href="blog-post.php"><img style="width: 100%;" src="./img/<?= $post['thumbnail'] ?>" alt=""></a>
 							<div class="post-body">
 								<div class="post-meta">
 									<a class="post-category cat-2" href="category.php"><?php echo $post['category']; ?></a>
@@ -153,7 +153,7 @@
 					<!-- post -->
 					<div class="col-md-4">
 						<div class="post">
-							<a class="post-img" href="blog-post.php?id=<?= $post['id'] ?>"><img width="360px" height="240px" src="<?php echo $post['thumbnail']; ?>" alt=""></a>
+							<a class="post-img" href="blog-post.php?id=<?= $post['id'] ?>"><img width="360px" height="220px" src="./img/<?= $post['thumbnail'] ?>" alt=""></a>
 							<div class="post-body">
 								<div class="post-meta">
 									<a class="post-category cat-1" href="category.php">Web Design</a>
@@ -182,7 +182,7 @@
 							<!-- post -->
 							<div class="col-md-12">
 								<div class="post post-thumb">
-									<a class="post-img" href="blog-post.php?id=<?= $post['id'] ?>"><img src="<?php echo $post['thumbnail']; ?>" alt=""></a>
+									<a class="post-img" href="blog-post.php?id=<?= $post['id'] ?>"><img src="./img/<?= $post['thumbnail'] ?>" alt=""></a>
 									<div class="post-body">
 										<div class="post-meta">
 											<a class="post-category cat-3" href="category.php">Jquery</a>
@@ -203,7 +203,7 @@
 							<!-- post -->
 							<div class="col-md-6">
 								<div class="post">
-									<a class="post-img" href="blog-post.php?id=<?= $post['id'] ?>"><img width="360px" height="240px" src="<?php echo $post['thumbnail']; ?>" alt=""></a>
+									<a class="post-img" href="blog-post.php?id=<?= $post['id'] ?>"><img width="360px" height="220px" src="./img/<?= $post['thumbnail'] ?>" alt=""></a>
 									<div class="post-body">
 										<div class="post-meta">
 											<a class="post-category cat-4" href="category.php">Css</a>

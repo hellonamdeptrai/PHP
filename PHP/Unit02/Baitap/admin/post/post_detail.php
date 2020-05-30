@@ -30,9 +30,17 @@
     <h3 align="center">Zent - Education And Technology Group</h3>
     <h3 align="center">Post Detail</h3>
     <hr>
+    <p><b>Trạng thái: </b><?php 
+        if ($post['status'] == 1) {
+            echo "Hoạt động";
+        } else {
+            echo "không hoạt động";
+        }
+        
+    ?> </p>
     <h2>Title: <?= $post['title'] ?></h2>
     <h2>Description: <?= $post['description'] ?></h2>
-    <h2><img width="100px" height= "60px" src="<?= $post['thumbnail'] ?>" alt=""></h2>
+    <h2><img width="100%" src="../../img/<?= $post['thumbnail'] ?>" alt=""></h2>
     <h2>Created_at: <?= $post['created_at'] ?></h2>
     <p><?= $post['contents'] ?></p>
     </div>

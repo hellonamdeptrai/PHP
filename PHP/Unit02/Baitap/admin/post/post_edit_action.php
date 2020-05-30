@@ -11,9 +11,10 @@
 	$status_upload = move_uploaded_file($_FILES["thumbnail"]["tmp_name"], $target_file);
 
 	if ($status_upload) { // nếu upload file không có lỗi 
-	    $thumbnail = basename( $_FILES["thumbnail"]["name"]);
+	    $thumbnail = ",thumbnail = '". basename( $_FILES["thumbnail"]["name"]."'");
 	}
 
+	$id = $_POST['id'];
 	$title = $_POST['title'];
 	$description = $_POST['description'];
 	$contents = $_POST['contents'];
@@ -22,16 +23,16 @@
 	$authors_id = 1;
 	$created_at = date('Y-m-d H:i:s');
 
-	$query = "INSERT INTO posts(title,description,contents,thumbnail,category_id,authors_id,status,created_at) VALUES ('".$title."','".$description."','".$contents."','".$thumbnail."','".$category_id."','".$authors_id."','".$status."','".$created_at."')";
+	$query = "UPDATE posts SET title ='".$title."', description = '".$description."', contents ='".$contents."', status ='".$status."', category_id = ".$category_id.$thumbnail.", authors_id ='".$authors_id."', created_at ='".$created_at."' WHERE id =".$id;
 
 	$status1 = $conn->query($query);
 
 	if ($status1 == true) {
-		setcookie('msg','Thêm mới thành công',time()+5);
+		setcookie('msg','Sửa thành công',time()+5);
 		header('Location: posts.php');
 	} else {
-		setcookie('msg','Thêm mới không thành công',time()+5);
-		header('Location: post_add.php');
+		setcookie('msg','Sửa không thành công',time()+5);
+		header('Location: post_edit.php');
 	}
 	
 

@@ -3,7 +3,7 @@
 
 	$name = $_POST['name'];
 	$email = $_POST['email'];
-	$password = $_POST['password'];
+	$password = md5($_POST['password']);
 	$status = $_POST['status'];
 
 	$query = "INSERT INTO authors(name,email,password,status) VALUES ('".$name."','".$email."','".$password."','".$status."')";

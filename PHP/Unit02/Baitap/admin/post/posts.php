@@ -37,7 +37,7 @@
     <a href="post_add.php" type="button" class="btn btn-primary">Thêm mới</a>
     <?php if (isset($_COOKIE['msg'])) { ?>
     <div class="alert alert-success">
-      	<strong>Thành công! </strong> <?= $_COOKIE['msg'] ?>
+      	<strong>Thông báo! </strong> <?= $_COOKIE['msg'] ?>
     </div>
     <?php } ?>
     <hr>
@@ -57,7 +57,7 @@
 	          	<th scope="row"><?= $post['id'] ?></th>
 	          	<td><?= $post['title'] ?></td>
 	          	<td><?= $post['description'] ?></td>
-	          	<td><img width="100px" height= "60px" src="<?= $post['thumbnail'] ?>" alt=""></td>
+	          	<td><img width="100%" src="../../img/<?= $post['thumbnail'] ?>" alt=""></td>
 	          	<td>
 	            	<a href="post_detail.php?id=<?= $post['id'] ?>" type="button" class="btn btn-default">Xem</a>
 	            	<a href="post_edit.php?id=<?= $post['id'] ?>" type="button" class="btn btn-success">Sửa</a>

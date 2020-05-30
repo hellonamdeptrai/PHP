@@ -1,7 +1,7 @@
 <?php 
   require_once('../../connection.php');
 
-  //category
+  //authors
   //Câu lệnh truy vấn
   $query_authors = "SELECT * FROM authors";
 
