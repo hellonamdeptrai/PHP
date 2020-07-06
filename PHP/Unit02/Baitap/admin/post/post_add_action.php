@@ -1,4 +1,9 @@
 <?php 
+	session_start();
+    if (!isset($_SESSION['isLogin']) && $_SESSION['isLogin'] != true) {
+        header("Location: ../login.php");
+    }
+    
 	require_once('../../connection.php');
 
 	date_default_timezone_set('Asia/Ho_Chi_Minh');
